@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/Screens/mobile_chatScreen.dart';
+import 'package:whatsapp_clone/features/chat/screens/mobile_chatScreen.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
 
 import '../../../../models/user_model.dart';

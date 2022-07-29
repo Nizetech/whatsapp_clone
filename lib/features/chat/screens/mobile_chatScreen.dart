@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/controller/auth_controller.dart';
 
-import '../Utils/info.dart';
-import '../colors.dart';
-import '../common/widget/loader.dart';
-import '../models/user_model.dart';
-import '../widgets/chat_list.dart';
+import '../../../Utils/info.dart';
+import '../../../colors.dart';
+import '../../../common/widget/loader.dart';
+import '../../../models/user_model.dart';
+import '../../../widgets/chat_list.dart';
+import '../widgets/bottom_chat_field.dart';
 
 class MobileChatScreen extends ConsumerWidget {
   static const routeName = '/mobile_chat_screen';
@@ -58,46 +59,12 @@ class MobileChatScreen extends ConsumerWidget {
         body: Column(
           children: [
             Expanded(
-              child: ChatList(),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: mobileChatBoxColor,
-                prefixIcon: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Icon(
-                    Icons.emoji_emotions,
-                    color: Colors.grey,
-                  ),
-                ),
-                suffixIcon: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.camera_alt,
-                        color: Colors.grey,
-                      ),
-                      Icon(
-                        Icons.attach_file,
-                        color: Colors.grey,
-                      ),
-                      Icon(
-                        Icons.money,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                hintText: 'Type a message...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: EdgeInsets.all(10),
+              child: ChatList(
+                receiverUserId: uid,
               ),
+            ),
+            BottomChatField(
+              receiverUserId: uid,
             ),
           ],
         ));
