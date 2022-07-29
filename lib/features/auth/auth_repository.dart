@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -28,6 +27,16 @@ class AuthRepository {
       {required this.auth,
       required this.firestore,
       required this.firebaseStorage});
+
+  Future<UserModel?> getCurrentUserData() async {
+    var userData =
+        await firestore.collection('users').doc(auth.currentUser?.uid).get();
+    UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
 
   void signInWithPhone(BuildContext context, String phoneNumber) async {
     try {
@@ -86,19 +95,14 @@ class AuthRepository {
         photoUrl = await ref
             .read(commonFirebaseStorageRepositoryProvider)
             .storeFileToFirebase('profilePic/$uid', profilePic);
-        // UploadTask uploadTask =
-        //     firebaseStorage.ref().child('profilePic/$uid').putFile(profilePic);
-        // TaskSnapshot snap = await uploadTask;
-        // photoUrl = await snap.ref.getDownloadURL();
+        print(photoUrl);
       }
-
-      // return photoUrl;
       var user = UserModel(
         name: name,
         uid: uid,
         profilePic: photoUrl,
         isOnline: true,
-        phoneNumber: auth.currentUser!.uid,
+        phoneNumber: auth.currentUser!.phoneNumber!,
         groupId: [],
       );
       await firestore.collection('users').doc(uid).set(user.toMap());
@@ -115,5 +119,13 @@ class AuthRepository {
         content: e.toString(),
       );
     }
+  }
+
+  Stream<UserModel> userData(String userId) {
+    return firestore.collection('users').doc(userId).snapshots().map(
+          (event) => UserModel.fromMap(
+            event.data()!,
+          ),
+        );
   }
 }

@@ -30,7 +30,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
 
   void storeUserData() async {
     String name = nameController.text.trim();
-    if (name != null && image != null) {
+    if (name.isNotEmpty) {
       ref.read(authControllerProvider).saveUserDataToFirebase(
             context,
             name,

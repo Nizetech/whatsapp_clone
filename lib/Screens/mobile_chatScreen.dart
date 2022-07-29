@@ -1,20 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/features/controller/auth_controller.dart';
 
 import '../Utils/info.dart';
 import '../colors.dart';
+import '../common/widget/loader.dart';
+import '../models/user_model.dart';
 import '../widgets/chat_list.dart';
 
-class MobileChatScreen extends StatelessWidget {
-  const MobileChatScreen({Key? key}) : super(key: key);
+class MobileChatScreen extends ConsumerWidget {
+  static const routeName = '/mobile_chat_screen';
+  final String name;
+  final String uid;
+  const MobileChatScreen({Key? key, required this.name, required this.uid})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appBarColor,
-          title: Text(
-            info[0]['name'].toString(),
-          ),
+          title: StreamBuilder<UserModel>(
+              stream: ref.read(authControllerProvider).userDataById(uid),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Loader();
+                }
+                return Column(
+                  children: [
+                    Text(
+                      name,
+                    ),
+                    Text(
+                      snapshot.data!.isOnline ? 'Online' : 'Offline',
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.normal),
+                    ),
+                  ],
+                );
+              }),
           centerTitle: false,
           actions: <Widget>[
             IconButton(

@@ -20,6 +20,7 @@ class CommonFirebaseStorageRipository {
     UploadTask uploadTask = firebaseStorage.ref().child(ref).putFile(file);
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
+    print(downloadUrl);
     return downloadUrl;
   }
 }

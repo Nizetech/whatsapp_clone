@@ -21,7 +21,10 @@ class ContactList extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MobileChatScreen(),
+                      builder: (context) => MobileChatScreen(
+                        name: 'Abraham',
+                        uid: '12345',
+                      ),
                     ),
                   );
                 },
