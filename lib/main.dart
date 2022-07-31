@@ -5,7 +5,7 @@ import 'package:whatsapp_clone/Screens/screen_landing.dart';
 import 'package:whatsapp_clone/Utils/responsive_layout.dart';
 import 'package:whatsapp_clone/colors.dart';
 import 'package:whatsapp_clone/common/widget/loader.dart';
-import 'package:whatsapp_clone/features/controller/auth_controller.dart';
+import 'package:whatsapp_clone/repositories/auth_controller.dart';
 import 'package:whatsapp_clone/firebase_options.dart';
 import 'package:whatsapp_clone/router.dart';
 import 'package:whatsapp_clone/widgets/error.dart';

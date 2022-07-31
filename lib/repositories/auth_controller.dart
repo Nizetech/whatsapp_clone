@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:riverpod/riverpod.dart';
@@ -49,5 +50,10 @@ class AuthController {
 
   Stream<UserModel> userDataById(String userId) {
     return authRepository.userData(userId);
+  }
+
+  void setUserStae(bool isOnline){
+    // ignore: use_function_type_syntax_for_parameters
+    authRepository.setUserState(isOnline);
   }
 }

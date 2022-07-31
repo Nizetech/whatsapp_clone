@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../colors.dart';
-import '../controller/auth_controller.dart';
+import '../../repositories/auth_controller.dart';
 
 class OtpScreen extends ConsumerWidget {
   const OtpScreen({Key? key, required this.verificationId}) : super(key: key);

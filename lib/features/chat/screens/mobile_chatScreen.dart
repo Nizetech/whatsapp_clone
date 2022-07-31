@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/features/controller/auth_controller.dart';
+import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
 import '../../../Utils/info.dart';
 import '../../../colors.dart';
@@ -24,13 +24,14 @@ class MobileChatScreen extends ConsumerWidget {
           title: StreamBuilder<UserModel>(
               stream: ref.read(authControllerProvider).userDataById(uid),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (!snapshot.hasData) {
                   return Loader();
                 }
                 return Column(
                   children: [
                     Text(
                       name,
+                      // 'Fortune'
                     ),
                     Text(
                       snapshot.data!.isOnline ? 'Online' : 'Offline',

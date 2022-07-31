@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/chat/repositories/chat_repository.dart';
-import 'package:whatsapp_clone/features/controller/auth_controller.dart';
+import 'package:whatsapp_clone/repositories/auth_controller.dart';
 import 'package:whatsapp_clone/models/meessage.dart';
 
 import '../../../models/chat_contact.dart';

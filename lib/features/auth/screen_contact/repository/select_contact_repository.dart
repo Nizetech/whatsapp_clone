@@ -44,9 +44,15 @@ class SelectContactRepository {
         );
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
+          print(userData.name);
+          // print(userData);
+          print(userData.uid);
+          print(userData.phoneNumber);
+          // ignore: use_build_context_synchronously
           Navigator.pushNamed(
             context,
             MobileChatScreen.routeName,
+            // arguments: userData.uid,
             arguments: {
               'user': userData.name,
               'uid': userData.uid,
@@ -54,7 +60,7 @@ class SelectContactRepository {
           );
         }
       }
-
+      print(selectContact.phones[0].number);
       if (!isFound) {
         showSnackBar(
           context: context,

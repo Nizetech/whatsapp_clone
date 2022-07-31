@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/auth/screen_contact/screens/select_contact_screens.dart';
+import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
 import '../colors.dart';
 import '../widgets/contacts_list.dart';
 
-class MobileLayoutScreen extends StatelessWidget {
+class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<MobileLayoutScreen> createState() => _MobileLayoutScreenState();
+}
+
+class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        ref.read(authControllerProvider).setUserStae(true);
+        break;
+      case AppLifecycleState.paused:
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.detached:
+        ref.read(authControllerProvider).setUserStae(false);
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/colors.dart';
 // import 'package:riverpod/riverpod.dart';
 import 'package:whatsapp_clone/common/widget/customButton.dart';
-import 'package:whatsapp_clone/features/controller/auth_controller.dart';
+import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
 import '../../../common/utils/utils.dart';
 
