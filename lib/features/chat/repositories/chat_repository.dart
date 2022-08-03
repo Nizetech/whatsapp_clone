@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whatsapp_clone/common/enum/message_enums.dart';
+import 'package:whatsapp_clone/common/repositories/common_firebase_repository.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
 import 'package:whatsapp_clone/models/chat_contact.dart';
 import 'package:whatsapp_clone/models/meessage.dart';
@@ -38,13 +41,17 @@ class ChatRepository {
         .snapshots()
         .asyncMap((event) async {
       List<ChatContact> contacts = [];
-
       for (var document in event.docs) {
         var chatContact = ChatContact.fromMap(document.data());
+        // print(chatContact);
+        // print(chatContact.name);
+        // print(chatContact.contactId);
+        // print(chatContact.lastMessage);
         var userData = await firestore
             .collection('users')
             .doc(chatContact.contactId)
             .get();
+        // print(userData);
         var user = UserModel.fromMap(userData.data()!);
         contacts.add(
           ChatContact(
@@ -55,6 +62,7 @@ class ChatRepository {
             lastMessage: chatContact.lastMessage,
           ),
         );
+        // print(contacts);
       }
       return contacts;
     });
@@ -72,6 +80,7 @@ class ChatRepository {
       List<Message> messages = [];
       for (var document in event.docs) {
         messages.add(Message.fromMap(document.data()));
+        // print(messages);
       }
       return messages;
     });
@@ -89,7 +98,7 @@ class ChatRepository {
     var receieverChatContact = ChatContact(
       name: senderUserData.name,
       profilePic: senderUserData.profilePic,
-      contactId: senderUserData.phoneNumber,
+      contactId: senderUserData.uid,
       timeSent: timeSent,
       lastMessage: text,
     );
@@ -104,7 +113,7 @@ class ChatRepository {
     var senderChatContact = ChatContact(
       name: receiverUserData.name,
       profilePic: receiverUserData.profilePic,
-      contactId: receiverUserData.phoneNumber,
+      contactId: receiverUserData.uid,
       timeSent: timeSent,
       lastMessage: text,
     );
@@ -189,6 +198,67 @@ class ChatRepository {
         text: text,
         timeSent: timeSent,
         messageType: MessageEnum.text,
+        messageId: messageId,
+        receiverUseraName: receiverUserData.name,
+        username: senderUserData.name,
+      );
+    } catch (e) {
+      showSnackBar(context: context, content: e.toString());
+    }
+  }
+
+// sharing image message
+  void sendFileMessage({
+    required BuildContext context,
+    required File file,
+    required String receivedUserId,
+    required UserModel senderUserData,
+    required ProviderRef ref,
+    required MessageEnum messageEnum,
+  }) async {
+    try {
+      var timeSent = DateTime.now();
+      var messageId = Uuid().v1();
+      String imageUrl = await ref
+          .read(commonFirebaseStorageRepositoryProvider)
+          .storeFileToFirebase(
+              'chat/${messageEnum.type}/${senderUserData.uid}/$receivedUserId/$messageId',
+              file);
+      UserModel receiverUserData;
+      var userDataMap =
+          await firestore.collection('users').doc(receivedUserId).get();
+      receiverUserData = UserModel.fromMap(userDataMap.data()!);
+
+      String contactMsg;
+      switch (messageEnum) {
+        case MessageEnum.image:
+          contactMsg = '📷Photo';
+          break;
+        case MessageEnum.video:
+          contactMsg = '🎥Video';
+          break;
+        case MessageEnum.audio:
+          contactMsg = '🎵Photo';
+          break;
+        case MessageEnum.gif:
+          contactMsg = 'GIF';
+          break;
+        default:
+          contactMsg = 'GIF';
+      }
+
+      _saveDataToContactSubCollection(
+        senderUserData,
+        receiverUserData,
+        contactMsg,
+        timeSent,
+        receivedUserId,
+      );
+      _saveMessageToMessageSubCollection(
+        receiverUserId: receivedUserId,
+        text: imageUrl,
+        timeSent: timeSent,
+        messageType: messageEnum,
         messageId: messageId,
         receiverUseraName: receiverUserData.name,
         username: senderUserData.name,

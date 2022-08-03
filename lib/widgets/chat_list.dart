@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/models/meessage.dart';
-import 'package:whatsapp_clone/widgets/sender_message_card.dart';
 import 'package:intl/intl.dart';
 import '../Utils/info.dart';
 import '../common/widget/loader.dart';
 import '../features/chat/controller/chat_controller.dart';
-import 'my_message_card.dart';
+import '../features/chat/widgets/my_message_card.dart';
+import '../features/chat/widgets/sender_message_card.dart';
 
 class ChatList extends ConsumerStatefulWidget {
   final String receiverUserId;
@@ -50,13 +50,14 @@ class _ChatListState extends ConsumerState<ChatList> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final messagData = snapshot.data![index];
+              print(messagData.text);
               var timeSent = DateFormat.Hm().format(messagData.timeSent);
-
               if (messagData.senderId ==
                   FirebaseAuth.instance.currentUser!.uid) {
                 return MyMessageCard(
                   message: messagData.text,
                   date: timeSent,
+                  type: messagData.type,
                 );
               }
               return SenderMessageCard(
