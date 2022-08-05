@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/colors.dart';
+import 'package:whatsapp_clone/features/chat/widgets/display_text_image.dart';
+
+import '../../../common/enum/message_enums.dart';
 
 class SenderMessageCard extends StatelessWidget {
   final String message;
   final String date;
-  const SenderMessageCard({Key? key, required this.message, required this.date})
+  final MessageEnum type;
+  const SenderMessageCard(
+      {Key? key, required this.type, required this.message, required this.date})
       : super(key: key);
 
   @override
@@ -24,11 +29,14 @@ class SenderMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding:
-                    EdgeInsets.only(left: 30, right: 10, top: 5, bottom: 20),
-                child: Text(
-                  message,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                padding: type == MessageEnum.text
+                    ? const EdgeInsets.only(
+                        left: 10, right: 30, top: 5, bottom: 20)
+                    : const EdgeInsets.only(
+                        left: 5, right: 5, top: 5, bottom: 25),
+                child: DisplayTextImageGIF(
+                  message: message,
+                  type: type,
                 ),
               ),
               Positioned(

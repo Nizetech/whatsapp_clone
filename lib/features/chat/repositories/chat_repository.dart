@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,10 +44,10 @@ class ChatRepository {
       List<ChatContact> contacts = [];
       for (var document in event.docs) {
         var chatContact = ChatContact.fromMap(document.data());
-        // print(chatContact);
-        // print(chatContact.name);
-        // print(chatContact.contactId);
-        // print(chatContact.lastMessage);
+        print(chatContact);
+        print(chatContact.name);
+        print(chatContact.contactId);
+        print(chatContact.lastMessage);
         var userData = await firestore
             .collection('users')
             .doc(chatContact.contactId)
@@ -259,6 +260,44 @@ class ChatRepository {
         text: imageUrl,
         timeSent: timeSent,
         messageType: messageEnum,
+        messageId: messageId,
+        receiverUseraName: receiverUserData.name,
+        username: senderUserData.name,
+      );
+    } catch (e) {
+      showSnackBar(context: context, content: e.toString());
+    }
+  }
+
+  void sendGIFMessage({
+    required BuildContext context,
+    required String gifUrl,
+    required String receivedUserId,
+    required UserModel senderUserData,
+  }) async {
+// Users --> sender id --> reciever id --> message -> message id -> store message
+    try {
+      var timeSent = DateTime.now();
+      UserModel receiverUserData;
+      var userDataMap =
+          await firestore.collection('users').doc(receivedUserId).get();
+      receiverUserData = UserModel.fromMap(userDataMap.data()!);
+      // Users -> reciever user id -> chats -> current user id -> set data
+      //contact Sub-collection
+      var messageId = const Uuid().v1();
+      _saveDataToContactSubCollection(
+        senderUserData,
+        receiverUserData,
+        'GIF',
+        timeSent,
+        receivedUserId,
+      );
+
+      _saveMessageToMessageSubCollection(
+        receiverUserId: receivedUserId,
+        text: gifUrl,
+        timeSent: timeSent,
+        messageType: MessageEnum.gif,
         messageId: messageId,
         receiverUseraName: receiverUserData.name,
         username: senderUserData.name,
