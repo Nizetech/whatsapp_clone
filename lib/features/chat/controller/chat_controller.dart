@@ -39,14 +39,14 @@ class ChatController {
 
   void sendTextMessage(
       BuildContext context, String text, String receiverUserId) {
-    final messageReply = ref.read(messageReplyProvider);
+    // final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendTextMessage(
             context: context,
             text: text,
             receivedUserId: receiverUserId,
             senderUserData: value!,
-            messageReply: messageReply,
+            // messageReply: messageReply,
           ),
         );
   }
@@ -67,7 +67,7 @@ class ChatController {
             senderUserData: value!,
             messageEnum: messageEnum,
             ref: ref,
-            messageReply: messageReply,
+            // messageReply: messageReply,
           ),
         );
   }

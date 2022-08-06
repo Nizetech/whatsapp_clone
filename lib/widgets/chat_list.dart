@@ -49,6 +49,8 @@ class _ChatListState extends ConsumerState<ChatList> {
         stream:
             ref.read(chatControllerProvider).chatStream(widget.receiverUserId),
         builder: (context, snapshot) {
+          print(snapshot.data);
+          print('Here i am');
           if (!snapshot.hasData) {
             return Center(
               child: Loader(),
@@ -74,28 +76,28 @@ class _ChatListState extends ConsumerState<ChatList> {
                   message: messagData.text,
                   date: timeSent,
                   type: messagData.type,
-                  repliedMessageType: messagData.repliedMessageType,
-                  repliedText: messagData.repliedMessage,
-                  userName: messagData.repliedTo,
-                  onLeftSwipe: () => onMessageSwipe(
-                    messagData.text,
-                    true,
-                    messagData.type,
-                  ),
+                  // repliedMessageType: messagData.repliedMessageType,
+                  // repliedText: messagData.repliedMessage,
+                  // userName: messagData.repliedTo,
+                  // onLeftSwipe: () => onMessageSwipe(
+                  //   messagData.text,
+                  //   true,
+                  //   messagData.type,
+                  // ),
                 );
               }
               return SenderMessageCard(
                 type: messagData.type,
                 message: messagData.text,
                 date: timeSent,
-                userName: messagData.repliedTo,
-                repliedMessageType: messagData.repliedMessageType,
-                onRightSwipe: () => onMessageSwipe(
-                  messagData.text,
-                  false,
-                  messagData.type,
-                ),
-                repliedText: messagData.repliedMessage,
+                // userName: messagData.repliedTo,
+                // repliedMessageType: messagData.repliedMessageType,
+                // onRightSwipe: () => onMessageSwipe(
+                //   messagData.text,
+                //   false,
+                //   messagData.type,
+                // ),
+                // repliedText: messagData.repliedMessage,
               );
             },
           );

@@ -68,10 +68,6 @@ class ChatRepository {
         .collection('chats')
         .doc(receiverUserId)
         .collection('messages')
-        .orderBy(
-          'timestamp',
-          //  descending: true
-        )
         .snapshots()
         .asyncMap((event) async {
       List<Message> messages = [];
@@ -132,9 +128,9 @@ class ChatRepository {
     required String username,
     required String receiverUsername,
     required MessageEnum messageType,
-    required MessageReply? messageReply,
-    required String senderUserName,
-    required String receiverUserName,
+    // required MessageReply? messageReply,
+    // required String senderUserName,
+    // required String receiverUserName,
   }) async {
     final message = Message(
       messageId: messageId,
@@ -144,14 +140,14 @@ class ChatRepository {
       timeSent: timeSent,
       isSeen: false,
       type: messageType,
-      repliedMessage: messageReply == null ? '' : messageReply.message,
-      repliedTo: messageReply == null
-          ? ''
-          : messageReply.isMe
-              ? senderUserName
-              : receiverUsername,
-      repliedMessageType:
-          messageReply == null ? MessageEnum.text : messageReply.messageEnum,
+      // repliedMessage: messageReply == null ? '' : messageReply.message,
+      // repliedTo: messageReply == null
+      //     ? ''
+      //     : messageReply.isMe
+      //         ? senderUserName
+      //         : receiverUsername,
+      // repliedMessageType:
+      //     messageReply == null ? MessageEnum.text : messageReply.messageEnum,
     );
 // Users --> sender id --> reciever id --> message -> message id -> store message
     await firestore
@@ -182,7 +178,7 @@ class ChatRepository {
     required String text,
     required String receivedUserId,
     required UserModel senderUserData,
-    required MessageReply? messageReply,
+    // required MessageReply? messageReply,
   }) async {
 // Users --> sender id --> reciever id --> message -> message id -> store message
     try {
@@ -210,9 +206,9 @@ class ChatRepository {
         messageId: messageId,
         receiverUsername: receiverUserData.name,
         username: senderUserData.name,
-        messageReply: messageReply,
-        receiverUserName: receiverUserData.name,
-        senderUserName: senderUserData.name,
+        // messageReply: messageReply,
+        // receiverUserName: receiverUserData.name,
+        // senderUserName: senderUserData.name,
       );
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
@@ -227,7 +223,7 @@ class ChatRepository {
     required UserModel senderUserData,
     required ProviderRef ref,
     required MessageEnum messageEnum,
-    required MessageReply? messageReply,
+    // required MessageReply? messageReply,
   }) async {
     try {
       var timeSent = DateTime.now();
@@ -275,9 +271,9 @@ class ChatRepository {
         messageId: messageId,
         receiverUsername: receiverUserData.name,
         username: senderUserData.name,
-        messageReply: messageReply,
-        receiverUserName: receiverUserData.name,
-        senderUserName: senderUserData.name,
+        // messageReply: messageReply,
+        // receiverUserName: receiverUserData.name,
+        // senderUserName: senderUserData.name,
       );
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
@@ -317,9 +313,9 @@ class ChatRepository {
         messageId: messageId,
         receiverUsername: receiverUserData.name,
         username: senderUserData.name,
-        messageReply: messageReply,
-        receiverUserName: receiverUserData.name,
-        senderUserName: senderUserData.name,
+        // messageReply: messageReply,
+        // receiverUserName: receiverUserData.name,
+        // senderUserName: senderUserData.name,
       );
     } catch (e) {
       showSnackBar(context: context, content: e.toString());

@@ -59,6 +59,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             _messageController.text.trim(),
             widget.receiverUserId,
           );
+      print(_messageController.text.trim());
       setState(() {
         _messageController.text = '';
       });
@@ -159,11 +160,11 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   @override
   Widget build(BuildContext context) {
-    final messageReply = ref.watch(messageReplyProvider);
-    final isShowMessageReply = messageReply != null;
+    // final messageReply = ref.watch(messageReplyProvider);
+    // final isShowMessageReply = messageReply != null;
     return Column(
       children: [
-        isShowMessageReply ? const MessageReplyPreview() : const SizedBox(),
+        // isShowMessageReply ? const MessageReplyPreview() : const SizedBox(),
         Row(
           children: [
             Expanded(
