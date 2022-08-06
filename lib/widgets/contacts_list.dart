@@ -35,7 +35,7 @@ class ContactList extends ConsumerWidget {
                     onTap: () {
                       Navigator.pushNamed(context, MobileChatScreen.routeName,
                           arguments: {
-                            'name': chatContactData.name,
+                            'user': chatContactData.name,
                             'uid': chatContactData.contactId,
                           });
                     },
