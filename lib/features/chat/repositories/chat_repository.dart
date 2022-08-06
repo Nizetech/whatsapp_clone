@@ -247,7 +247,7 @@ class ChatRepository {
           contactMsg = '🎥Video';
           break;
         case MessageEnum.audio:
-          contactMsg = '🎵Photo';
+          contactMsg = '🎵Audio';
           break;
         case MessageEnum.gif:
           contactMsg = 'GIF';
@@ -285,7 +285,7 @@ class ChatRepository {
     required String gifUrl,
     required String receivedUserId,
     required UserModel senderUserData,
-    required MessageReply? messageReply,
+    // required MessageReply? messageReply,
   }) async {
 // Users --> sender id --> reciever id --> message -> message id -> store message
     try {
@@ -320,5 +320,36 @@ class ChatRepository {
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
+
   }
+    void setMessageChatSeen(
+      BuildContext context,
+      String receiverUserId,
+      String messageId,
+    ) async {
+      try {
+        // Users --> sender id --> reciever id --> message -> message id -> store message
+        await firestore
+            .collection('users')
+            .doc(auth.currentUser!.uid)
+            .collection('chats')
+            .doc(receiverUserId)
+            .collection('messages')
+            .doc(messageId)
+            .update(
+          {'isSeen': true},
+        );
+// Users --> reciever id --> sender id --> message -> message id -> store message
+        await firestore
+            .collection('users')
+            .doc(receiverUserId)
+            .collection('chats')
+            .doc(auth.currentUser!.uid)
+            .collection('messages')
+            .doc(messageId)
+            .update(
+          {'isSeen': true},
+        );
+      } catch (e) {}
+    }
 }

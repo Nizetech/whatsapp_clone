@@ -68,8 +68,17 @@ class _ChatListState extends ConsumerState<ChatList> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final messagData = snapshot.data![index];
-              print(messagData.text);
+
               var timeSent = DateFormat.Hm().format(messagData.timeSent);
+              if (!messagData.isSeen &&
+                  messagData.senderId !=
+                      FirebaseAuth.instance.currentUser!.uid) {
+                ref.read(chatControllerProvider).setChatMessageSeen(
+                      context,
+                      widget.receiverUserId,
+                      messagData.messageId,
+                    );
+              }
               if (messagData.senderId ==
                   FirebaseAuth.instance.currentUser!.uid) {
                 return MyMessageCard(
@@ -84,6 +93,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                   //   true,
                   //   messagData.type,
                   // ),
+                  isSeen: messagData.isSeen,
                 );
               }
               return SenderMessageCard(

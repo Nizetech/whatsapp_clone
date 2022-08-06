@@ -39,7 +39,7 @@ class ChatController {
 
   void sendTextMessage(
       BuildContext context, String text, String receiverUserId) {
-    // final messageReply = ref.read(messageReplyProvider);
+    final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendTextMessage(
             context: context,
@@ -49,6 +49,7 @@ class ChatController {
             // messageReply: messageReply,
           ),
         );
+    // ref.read(messageReplyProvider.state).update((state) => null);
   }
 
   void sendFileMessage(
@@ -57,7 +58,7 @@ class ChatController {
     String receiverUserId,
     MessageEnum messageEnum,
   ) {
-    final messageReply = ref.read(messageReplyProvider);
+    // final messageReply = ref.read(messageReplyProvider);
 
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendFileMessage(
@@ -70,6 +71,7 @@ class ChatController {
             // messageReply: messageReply,
           ),
         );
+    // ref.read(messageReplyProvider.state).update((state) => null);
   }
 
   void sendGIFMessage(
@@ -77,10 +79,10 @@ class ChatController {
     String gifUrl,
     String receiverUserId,
   ) {
+    // final messageReply = ref.read(messageReplyProvider);
     int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
     String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
     String newGifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
-    final messageReply = ref.read(messageReplyProvider);
 
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendGIFMessage(
@@ -88,8 +90,21 @@ class ChatController {
             gifUrl: newGifUrl,
             receivedUserId: receiverUserId,
             senderUserData: value!,
-            messageReply: messageReply,
+            // messageReply: messageReply,
           ),
         );
+    // ref.read(messageReplyProvider.state).update((state) => null);
+  }
+
+  void setChatMessageSeen(
+    BuildContext context,
+    String receiverUserId,
+    String messageId,
+  ) {
+    chatRepository.setMessageChatSeen(
+      context,
+      receiverUserId,
+      messageId,
+    );
   }
 }
