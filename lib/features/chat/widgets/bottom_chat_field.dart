@@ -17,8 +17,10 @@ import 'messageReplyPreview.dart';
 
 class BottomChatField extends ConsumerStatefulWidget {
   final String receiverUserId;
+  final bool isGroupChat;
   const BottomChatField({
     required this.receiverUserId,
+    required this.isGroupChat,
     Key? key,
   }) : super(key: key);
 
@@ -58,6 +60,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             context,
             _messageController.text.trim(),
             widget.receiverUserId,
+            widget.isGroupChat,
           );
       print(_messageController.text.trim());
       setState(() {
@@ -90,6 +93,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           file,
           widget.receiverUserId,
           messageEnum,
+          widget.isGroupChat,
         );
   }
 
@@ -123,10 +127,12 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     final gif = await pickGIF(context);
     if (gif != null) {
       print(gif);
+      // ignore: use_build_context_synchronously
       ref.read(chatControllerProvider).sendGIFMessage(
             context,
             gif.url,
             widget.receiverUserId,
+            widget.isGroupChat,
           );
     }
   }
@@ -191,14 +197,14 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                       children: [
                         IconButton(
                           onPressed: toggleEmojiContainer,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.emoji_emotions,
                             color: Colors.grey,
                           ),
                         ),
                         IconButton(
                           onPressed: selectGIF,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.gif,
                             color: Colors.grey,
                           ),

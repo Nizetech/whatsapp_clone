@@ -116,6 +116,7 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                 File? pickedImage = await pickImageFromGallery(context);
                 print(pickedImage);
                 if (pickedImage != null) {
+                  // ignore: use_build_context_synchronously
                   Navigator.pushNamed(
                     context,
                     ConfirmStatusScreen.routeName,

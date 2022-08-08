@@ -10,7 +10,7 @@ void showSnackBar({required BuildContext context, required String content}) {
       backgroundColor: Colors.greenAccent,
       content: Text(
         content,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       // duration: const Duration(seconds: 2),
     ),

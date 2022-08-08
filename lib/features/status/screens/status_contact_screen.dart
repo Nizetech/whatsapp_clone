@@ -45,7 +45,7 @@ class StatusContactScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: dividerColor,
                   indent: 85,
                 ),
