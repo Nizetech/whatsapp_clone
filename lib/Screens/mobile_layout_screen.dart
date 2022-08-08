@@ -9,6 +9,7 @@ import 'package:whatsapp_clone/features/status/screens/status_contact_screen.dar
 import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
 import '../colors.dart';
+import '../features/group/screens/create_group_screen.dart';
 import '../widgets/contacts_list.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
@@ -69,9 +70,17 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
               ),
               onPressed: () {},
             ),
-            IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {},
+            PopupMenuButton(
+              icon: const Icon(Icons.more_vert, color: Colors.grey),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: Text('Create Group'),
+                  onTap: () => Future(
+                    () => Navigator.pushNamed(
+                        context, CreateGroupScreen.routeName),
+                  ),
+                ),
+              ],
             ),
           ],
           bottom: TabBar(
