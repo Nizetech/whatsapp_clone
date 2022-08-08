@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/features/auth/screen_contact/screens/select_contact_screens.dart';
+import 'package:whatsapp_clone/features/status/screens/confirm_status_screen.dart';
+import 'package:whatsapp_clone/features/status/screens/status_screen.dart';
+import 'package:whatsapp_clone/models/status_model.dart';
 import 'package:whatsapp_clone/widgets/error.dart';
 
 import 'features/chat/screens/mobile_chatScreen.dart';
@@ -39,10 +44,26 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           uid: uid,
         ),
       );
+
+    case ConfirmStatusScreen.routeName:
+      final file = settings.arguments as File;
+      return MaterialPageRoute(
+        builder: (context) => ConfirmStatusScreen(
+          file: file,
+        ),
+      );
+    case StatusScreen.routeName:
+      final status = settings.arguments as Status;
+      return MaterialPageRoute(
+        builder: (context) => StatusScreen(
+          status: status,
+        ),
+      );
     default:
       return MaterialPageRoute(
-          builder: (context) => const Scaffold(
-                body: ErrorScreeen(error: 'This page doesn\'t exist'),
-              ));
+        builder: (context) => const Scaffold(
+          body: ErrorScreeen(error: 'This page doesn\'t exist'),
+        ),
+      );
   }
 }

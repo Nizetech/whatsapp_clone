@@ -4,6 +4,7 @@ import 'package:whatsapp_clone/features/chat/controller/chat_controller.dart';
 import 'package:whatsapp_clone/models/chat_contact.dart';
 import 'package:intl/intl.dart';
 
+import '../colors.dart';
 import '../common/widget/loader.dart';
 import '../features/chat/screens/mobile_chatScreen.dart';
 import '../Utils/info.dart';
@@ -64,7 +65,12 @@ class ContactList extends ConsumerWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
+              Divider(
+                    color: dividerColor,
+                    indent: 85,
+                  ),
+
                 ]);
               },
             );

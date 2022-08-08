@@ -57,6 +57,8 @@ class AuthRepository {
       );
     } on FirebaseAuthException catch (e) {
       showSnackBar(context: context, content: e.message!);
+    print(e.toString());
+
     }
   }
 

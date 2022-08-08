@@ -46,6 +46,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       // "read" in provider is  => Provider.of<T>(context, listen: false) instead use context.read
     } else {
       showSnackBar(context: context, content: 'Please enter phone number');
+      // print(e.toString());
     }
   }
 
