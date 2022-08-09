@@ -12,8 +12,8 @@ class CallScreen extends ConsumerStatefulWidget {
   final bool isGroupChat;
   const CallScreen({
     Key? key,
-    required this.call,
     required this.channelId,
+    required this.call,
     required this.isGroupChat,
   }) : super(key: key);
 
@@ -23,16 +23,17 @@ class CallScreen extends ConsumerStatefulWidget {
 
 class _CallScreenState extends ConsumerState<CallScreen> {
   AgoraClient? client;
-  final String baseUrl = '';
+  String baseUrl = 'https://whatsapp-clone-rrr.herokuapp.com';
 
   @override
   void initState() {
     super.initState();
-    agoraConnectionData:
-    AgoraConnectionData(
-      appId: ArgoraConfig.appId,
-      channelName: widget.channelId,
-      tokenUrl: baseUrl,
+    client = AgoraClient(
+      agoraConnectionData: AgoraConnectionData(
+        appId: ArgoraConfig.appId,
+        channelName: widget.channelId,
+        tokenUrl: baseUrl,
+      ),
     );
     initAgora();
   }
@@ -48,25 +49,26 @@ class _CallScreenState extends ConsumerState<CallScreen> {
           ? const Loader()
           : SafeArea(
               child: Stack(
-              children: [
-                AgoraVideoViewer(client: client!),
-                AgoraVideoButtons(
-                  client: client!,
-                  disconnectButtonChild: IconButton(
-                    onPressed: () async {
-                      await client!.engine.leaveChannel();
-                      ref.read(callControllerProvider).endCall(
-                            widget.call.callerId,
-                            widget.call.receiverId,
-                            context,
-                          );
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.call_end),
+                children: [
+                  AgoraVideoViewer(client: client!),
+                  AgoraVideoButtons(
+                    client: client!,
+                    disconnectButtonChild: IconButton(
+                      onPressed: () async {
+                        await client!.engine.leaveChannel();
+                        ref.read(callControllerProvider).endCall(
+                              widget.call.callerId,
+                              widget.call.receiverId,
+                              context,
+                            );
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.call_end),
+                    ),
                   ),
-                )
-              ],
-            )),
+                ],
+              ),
+            ),
     );
   }
 }
