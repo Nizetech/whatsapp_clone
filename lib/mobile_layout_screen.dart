@@ -8,9 +8,9 @@ import 'package:whatsapp_clone/features/status/screens/confirm_status_screen.dar
 import 'package:whatsapp_clone/features/status/screens/status_contact_screen.dart';
 import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
-import '../colors.dart';
-import '../features/group/screens/create_group_screen.dart';
-import '../widgets/contacts_list.dart';
+import 'common/utils/colors.dart';
+import 'features/group/screens/create_group_screen.dart';
+import 'widgets/contacts_list.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);

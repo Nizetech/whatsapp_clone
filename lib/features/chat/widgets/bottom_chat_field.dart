@@ -11,7 +11,7 @@ import 'package:whatsapp_clone/common/enum/message_enums.dart';
 import 'package:whatsapp_clone/common/providers/message_reply_provider.dart';
 import 'package:whatsapp_clone/features/chat/controller/chat_controller.dart';
 
-import '../../../colors.dart';
+import '../../../common/utils/colors.dart';
 import '../../../common/utils/utils.dart';
 import 'messageReplyPreview.dart';
 

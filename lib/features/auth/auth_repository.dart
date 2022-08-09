@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 // import 'package:firebase_storage/firebase_storage.dart' as firebaseStorage;
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:whatsapp_clone/Screens/mobile_layout_screen.dart';
+import 'package:whatsapp_clone/mobile_layout_screen.dart';
 import 'package:whatsapp_clone/common/repositories/common_firebase_repository.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
 import 'package:whatsapp_clone/features/auth/otp_screen.dart';
@@ -57,8 +57,7 @@ class AuthRepository {
       );
     } on FirebaseAuthException catch (e) {
       showSnackBar(context: context, content: e.message!);
-    print(e.toString());
-
+      print(e.toString());
     }
   }
 

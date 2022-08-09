@@ -4,10 +4,9 @@ import 'package:whatsapp_clone/features/chat/controller/chat_controller.dart';
 import 'package:whatsapp_clone/models/chat_contact.dart';
 import 'package:intl/intl.dart';
 
-import '../colors.dart';
+import '../common/utils/colors.dart';
 import '../common/widget/loader.dart';
 import '../features/chat/screens/mobile_chatScreen.dart';
-import '../Utils/info.dart';
 import '../models/group.dart';
 
 class ContactList extends ConsumerWidget {
@@ -23,7 +22,7 @@ class ContactList extends ConsumerWidget {
             StreamBuilder<List<Group>>(
                 stream: ref.watch(chatControllerProvider).chatGroups(),
                 builder: (context, snapshot) {
-                  print(snapshot.data);
+                  // print(snapshot.data);
                   if (!snapshot.hasData) {
                     return Center(
                       child: Loader(),
@@ -34,7 +33,7 @@ class ContactList extends ConsumerWidget {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       var groupData = snapshot.data![index];
-                      print(groupData);
+                      // print(groupData);
                       return Column(children: [
                         InkWell(
                           onTap: () {
@@ -44,6 +43,7 @@ class ContactList extends ConsumerWidget {
                                   'user': groupData.name,
                                   'uid': groupData.groupId,
                                   'isGroupChat': true,
+                                  'profilePic': groupData.groupPic,
                                 });
                           },
                           child: Padding(
@@ -105,6 +105,7 @@ class ContactList extends ConsumerWidget {
                                   'user': chatContactData.name,
                                   'uid': chatContactData.contactId,
                                   'isGroupChat': false,
+                                  'profilePic': chatContactData.profilePic,
                                 });
                           },
                           child: Padding(
