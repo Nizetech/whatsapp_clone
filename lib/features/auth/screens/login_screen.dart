@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 // import 'package:riverpod/riverpod.dart';
 import 'package:whatsapp_clone/common/widget/customButton.dart';
-import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
 import '../../../common/utils/utils.dart';
+import '../controller/auth_controller.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = '/login-screen';

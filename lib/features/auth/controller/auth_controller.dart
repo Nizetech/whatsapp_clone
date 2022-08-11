@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:whatsapp_clone/features/auth/auth_repository.dart';
+import 'package:whatsapp_clone/features/auth/repository/auth_repository.dart';
 import 'package:whatsapp_clone/models/user_model.dart';
 
 final authControllerProvider = Provider((ref) {
@@ -52,7 +52,7 @@ class AuthController {
     return authRepository.userData(userId);
   }
 
-  void setUserStae(bool isOnline){
+  void setUserStae(bool isOnline) {
     // ignore: use_function_type_syntax_for_parameters
     authRepository.setUserState(isOnline);
   }

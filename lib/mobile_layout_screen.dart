@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
-import 'package:whatsapp_clone/features/auth/screen_contact/screens/select_contact_screens.dart';
 import 'package:whatsapp_clone/features/status/screens/confirm_status_screen.dart';
 import 'package:whatsapp_clone/features/status/screens/status_contact_screen.dart';
-import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
 import 'common/utils/colors.dart';
+import 'features/auth/controller/auth_controller.dart';
 import 'features/group/screens/create_group_screen.dart';
+import 'features/screen_contact/screens/select_contact_screens.dart';
 import 'widgets/contacts_list.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
@@ -103,10 +103,11 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
             ],
           ),
         ),
-        body: TabBarView(controller: tabBarController, children: [
-          const ContactList(),
-          StatusContactScreen(),
-          const Text('Calls'),
+        body: TabBarView(controller: tabBarController, children: const [
+          ContactList(),
+          // StatusContactScreen(),
+          StatusContactsScreen(),
+          Text('Calls'),
         ]),
         floatingActionButton: FloatingActionButton(
             onPressed: () async {

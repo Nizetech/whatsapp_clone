@@ -37,8 +37,4 @@ class UserModel {
       groupId: List<String>.from(map['groupId']),
     );
   }
-
-  // String toJason() => json.encode(toMap());
-  // factory UserModel.fromJason(String jason) =>
-  //     UserModel.fromMap(json.decode(jason));
 }

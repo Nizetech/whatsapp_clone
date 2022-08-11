@@ -1,10 +1,11 @@
 import 'package:agora_uikit/agora_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/call/controller/call_controller.dart';
 import 'package:whatsapp_clone/common/widget/loader.dart';
 import 'package:whatsapp_clone/config/agora_config.dart';
 import 'package:whatsapp_clone/models/call.dart';
+
+import '../controller/call_controller.dart';
 
 class CallScreen extends ConsumerStatefulWidget {
   final String channelId;

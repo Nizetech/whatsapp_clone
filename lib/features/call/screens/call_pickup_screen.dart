@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/call/screens/call_sceeen.dart';
+import 'package:whatsapp_clone/features/call/screens/call_sceeen.dart';
 
-import '../../models/call.dart';
+import '../../../../models/call.dart';
 import '../controller/call_controller.dart';
 
 class CallPickUpScreen extends ConsumerWidget {
@@ -19,7 +19,7 @@ class CallPickUpScreen extends ConsumerWidget {
           Call call =
               Call.fromMap(snapshot.data!.data() as Map<String, dynamic>);
 
-          if (call.hasDialled) {
+          if (!call.hasDialled) {
             print('hasDialled');
             return Scaffold(
               body: Container(

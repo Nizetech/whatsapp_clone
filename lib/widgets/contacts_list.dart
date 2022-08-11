@@ -86,8 +86,9 @@ class ContactList extends ConsumerWidget {
                 builder: (context, snapshot) {
                   print(snapshot.data);
                   if (!snapshot.hasData) {
-                    return Center(
-                      child: Loader(),
+                    return const Center(
+                      // child: Loader(),
+                      child: SizedBox(),
                     );
                   }
                   return ListView.builder(

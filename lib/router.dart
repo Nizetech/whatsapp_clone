@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/features/auth/screen_contact/screens/select_contact_screens.dart';
 import 'package:whatsapp_clone/features/group/screens/create_group_screen.dart';
 import 'package:whatsapp_clone/features/status/screens/confirm_status_screen.dart';
 import 'package:whatsapp_clone/features/status/screens/status_screen.dart';
 import 'package:whatsapp_clone/models/status_model.dart';
 import 'package:whatsapp_clone/widgets/error.dart';
-
 import 'features/chat/screens/mobile_chatScreen.dart';
-import 'features/auth/otp_screen.dart';
+import 'features/auth/screens/otp_screen.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/screens/user_information_screen.dart';
+import 'features/screen_contact/screens/select_contact_screens.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

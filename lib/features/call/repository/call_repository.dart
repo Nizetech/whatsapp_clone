@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/call/screens/call_sceeen.dart';
 
-import '../../common/utils/utils.dart';
-import '../../models/call.dart';
-import '../../models/group.dart';
+import '../../../../common/utils/utils.dart';
+import '../../../../models/call.dart';
+import '../../../../models/group.dart';
+
+import '../screens/call_sceeen.dart';
 
 final callRepositoryProvider = Provider(
   (ref) => CallRepository(

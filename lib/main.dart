@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/screen_landing.dart';
 import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widget/loader.dart';
-import 'package:whatsapp_clone/repositories/auth_controller.dart';
 import 'package:whatsapp_clone/firebase_options.dart';
 import 'package:whatsapp_clone/router.dart';
 import 'package:whatsapp_clone/widgets/error.dart';
 
+import 'features/auth/controller/auth_controller.dart';
 import 'mobile_layout_screen.dart';
 
 void main() async {

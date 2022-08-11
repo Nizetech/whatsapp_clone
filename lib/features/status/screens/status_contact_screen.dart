@@ -7,16 +7,67 @@ import 'package:whatsapp_clone/features/status/screens/status_screen.dart';
 
 import '../../../models/status_model.dart';
 
-class StatusContactScreen extends ConsumerWidget {
-  StatusContactScreen({Key? key}) : super(key: key);
+// class StatusContactScreen extends ConsumerWidget {
+//   StatusContactScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return FutureBuilder<List<Status>>(
+//       future: ref.read(statusControllerProvider).getStatus(context),
+//       builder: (context, snapshot) {
+//         if (!snapshot.hasData) {
+//           return Loader();
+//         }
+//         return ListView.builder(
+//           itemCount: snapshot.data!.length,
+//           itemBuilder: (context, index) {
+//             var statusData = snapshot.data![index];
+//             return Column(
+//               children: [
+//                 InkWell(
+//                   onTap: () {
+//                     Navigator.pushNamed(context, StatusScreen.routeName,
+//                         arguments: statusData);
+//                   },
+//                   child: Padding(
+//                     padding: EdgeInsets.only(bottom: 10),
+//                     child: ListTile(
+//                       title: Text(
+//                         statusData.username,
+//                         style: TextStyle(fontSize: 18),
+//                       ),
+//                       leading: CircleAvatar(
+//                         backgroundImage: NetworkImage(
+//                           statusData.profilePic,
+//                         ),
+//                         radius: 30,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 const Divider(
+//                   color: dividerColor,
+//                   indent: 85,
+//                 ),
+//               ],
+//             );
+//           },
+//         );
+//       },
+//     );
+//   }
+// }
+
+class StatusContactsScreen extends ConsumerWidget {
+  const StatusContactsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FutureBuilder<List<Status>>(
       future: ref.read(statusControllerProvider).getStatus(context),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Loader();
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Loader();
         }
         return ListView.builder(
           itemCount: snapshot.data!.length,
@@ -26,15 +77,17 @@ class StatusContactScreen extends ConsumerWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, StatusScreen.routeName,
-                        arguments: statusData);
+                    Navigator.pushNamed(
+                      context,
+                      StatusScreen.routeName,
+                      arguments: statusData,
+                    );
                   },
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 8.0),
                     child: ListTile(
                       title: Text(
                         statusData.username,
-                        style: TextStyle(fontSize: 18),
                       ),
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage(
@@ -45,10 +98,7 @@ class StatusContactScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const Divider(
-                  color: dividerColor,
-                  indent: 85,
-                ),
+                const Divider(color: dividerColor, indent: 85),
               ],
             );
           },

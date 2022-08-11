@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/features/auth/screen_contact/screens/controller/select_contact_controller.dart';
 import 'package:whatsapp_clone/widgets/error.dart';
 
 import '../../../common/widget/loader.dart';
+import '../../screen_contact/controller/select_contact_controller.dart';
 
 final selectedGroupContacts = StateProvider<List<Contact>>((ref) => []);
 

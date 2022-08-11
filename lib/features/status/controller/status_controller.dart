@@ -3,44 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/status/repositories/status_repositories.dart';
-import 'package:whatsapp_clone/repositories/auth_controller.dart';
-
 import '../../../models/status_model.dart';
-
-final statusControllerProvider = Provider((ref) {
-  final statusRepository = ref.watch(statusRepositoryProvider);
-  return StatusController(
-    statusRepository: statusRepository,
-    ref: ref,
-  );
-});
-
-class StatusController {
-  final StatusRepository statusRepository;
-  final ProviderRef ref;
-  StatusController({
-    required this.statusRepository,
-    required this.ref,
-  });
-
-  void addStatus(File file, BuildContext context) async {
-    // final data = await ref.read(provider)
-    ref.read(userDataAuthProvider).whenData((value) {
-      statusRepository.uploadStatus(
-        username: value!.name,
-        profilePic: value.profilePic,
-        phoneNumber: value.phoneNumber,
-        statusImage: file,
-        context: context,
-      );
-    });
-  }
-
-  Future<List<Status>> getStatus(BuildContext context) async {
-    List<Status> statuses = await statusRepository.getStatus(context);
-    return statuses;
-  }
-}
+import '../../auth/controller/auth_controller.dart';
 
 // final statusControllerProvider = Provider((ref) {
 //   return StatusController(read: ref.read);
@@ -68,3 +32,36 @@ class StatusController {
 //   }
 // }
 
+final statusControllerProvider = Provider((ref) {
+  final statusRepository = ref.read(statusRepositoryProvider);
+  return StatusController(
+    statusRepository: statusRepository,
+    ref: ref,
+  );
+});
+
+class StatusController {
+  final StatusRepository statusRepository;
+  final ProviderRef ref;
+  StatusController({
+    required this.statusRepository,
+    required this.ref,
+  });
+
+  void addStatus(File file, BuildContext context) {
+    ref.watch(userDataAuthProvider).whenData((value) {
+      statusRepository.uploadStatus(
+        username: value!.name,
+        profilePic: value.profilePic,
+        phoneNumber: value.phoneNumber,
+        statusImage: file,
+        context: context,
+      );
+    });
+  }
+
+  Future<List<Status>> getStatus(BuildContext context) async {
+    List<Status> statuses = await statusRepository.getStatus(context);
+    return statuses;
+  }
+}

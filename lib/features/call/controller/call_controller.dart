@@ -7,10 +7,9 @@ import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whatsapp_clone/features/group/repositories/group_repository.dart';
-import 'package:whatsapp_clone/repositories/auth_controller.dart';
 
-import '../../features/chat/repositories/chat_repository.dart';
-import '../../models/call.dart';
+import '../../../../models/call.dart';
+import '../../auth/controller/auth_controller.dart';
 import '../repository/call_repository.dart';
 
 final callControllerProvider = Provider((ref) {
